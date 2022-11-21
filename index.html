@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        body {
+          background-color: pink;
+          text-align: center;
+        }
+        </style>
 <title>Matchmaker</title>
 </head>
 <body>
-<h1>Matchmaker</h1>
-<p>This application will help you find love!</p>
+<h1>♥Matchmaker♥</h1>
+<p>This application will see how compatible me and you are.</p>
+<p>Read each questions and click the dropdown box to select your answer.</p>
+<p>When finished click the Calculate Love button to see how compatible we are!</p>
 
 <label>
-    Deep dish pizza is the best!
+    Winter is the best season.
 </label>
 <br>
 
@@ -40,7 +48,7 @@
 <br>
 
 <label>
-    Deep dish pizza is the best!
+    Football is the best sport!
 </label>
 <br>
 
@@ -56,7 +64,7 @@
 <br>
 
 <label>
-    Deep dish pizza is the best!
+    Chicago is the best city!
 </label>
 <br>
 
@@ -72,7 +80,7 @@
 <br>
 
 <label>
-    Deep dish pizza is the best!
+    Eating in bed is wrong.
 </label>
 <br>
 
@@ -92,12 +100,75 @@
     Calculate Love
 </button>
 
+<br><br>
+
+<p id="score">
+    
+</p>
+
+<img id="myImg" src="">
 
 <script>
     console.log("starting")
 
     function calculatelove() {
-        console.log('calculating Love')
+        const preferredAnswers = [5, 5, 5, 5, 5];
+        let message = ""
+        console.log('calculating Love');
+        const userAnswers = [];
+        userAnswers.push (document.getElementById("q1").selectedOptions[0].value);
+        userAnswers.push (document.getElementById("q2").selectedOptions[0].value);
+        userAnswers.push (document.getElementById("q3").selectedOptions[0].value);
+        userAnswers.push (document.getElementById("q4").selectedOptions[0].value);
+        userAnswers.push (document.getElementById("q5").selectedOptions[0].value);
+
+        console.log(userAnswers);
+
+        let totalCompatibility = 0;
+        for (let i = 0; i < userAnswers.length; i++) {
+            const userAnswersInt = parseInt(userAnswers[i]);
+            let questionCompatibility = 5 - Math.abs(userAnswers[i] - [preferredAnswers[i]]);
+            totalCompatibility += questionCompatibility;
+        }
+        console.log(totalCompatibility)
+        totalCompatibility = (totalCompatibility/25)*100
+
+        if (totalCompatibility >= 80) {
+            message = "Me and you are " +totalCompatibility+ "% compatible, we should go out sometime, on me.";
+            document.getElementById("myImg").src = "monkey.jpg";
+            document.getElementById("myImg").width = "300"
+            document.getElementById("myImg").height = "300"
+        }
+
+        if (totalCompatibility >= 60 && totalCompatibility < 80) {
+            message = "Me and you are " +totalCompatibility+ "% compatible, we should go out sometime, on you."
+            document.getElementById("myImg").src = "dancingmonkey.gif";
+            document.getElementById("myImg").width = "300"
+            document.getElementById("myImg").height = "300"
+        }
+
+        if (totalCompatibility >= 50 && totalCompatibility < 60) {
+            message = "Me and you are " +totalCompatibility+ "% compatible, maybe we can be friends."
+            document.getElementById("myImg").src = "sleepingmonkey.jpg";
+            document.getElementById("myImg").width = "300"
+            document.getElementById("myImg").height = "300"
+        }
+
+        if (totalCompatibility >= 30 && totalCompatibility < 50) {
+            message = "Me and you are " +totalCompatibility+ "% compatible, this definetly would not work out."
+            document.getElementById("myImg").src = "monkeysad.jpg";
+            document.getElementById("myImg").width = "300"
+            document.getElementById("myImg").height = "300"
+        }
+
+        if (totalCompatibility >= 0 && totalCompatibility < 30) {
+            message = "Me and you are " +totalCompatibility+ "% compatible, personally I would not let you meet my mom."
+            document.getElementById("myImg").src = "cannonmonkey.jpg";
+            document.getElementById("myImg").width = "300"
+            document.getElementById("myImg").height = "300"
+        }
+
+        document.getElementById("score").innerHTML = message;
     }
 </script>
 
